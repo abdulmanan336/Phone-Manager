@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="{% static "css/user.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="login" id="targetElement1">
+        <h1>Sign In</h1>
+
+        <form id="form1" action="{% url "signin" %}" method="post" class="credentials">
+            <label>Username</label>
+            <input type="text" placeholder="Email / Phone / Username" name='username'>
+            <label id="margin">Password</label>
+            <input type="password" placeholder="Password" name='password'>
+            {% csrf_token %}
+        </form>
+        <div>
+            <button form="form1">Log In</button>
+            <a id="clickMe">Create an account</a>
+        </div>
+        <p style="color: red;">{{ error_message }}</p>
+
+    </div>
+    <div id="targetElement2" style="display: none;" class="signup">
+        <h1><i id="click" class="fa fa-arrow-left" aria-hidden="true"></i> Sign Up</h1><br>
+        <form id="form2" action="{% url "signup" %}" method="post" class="credentials2">
+            <label>Username</label>
+            <input type="text" placeholder="Username" name="username">
+            <label class="margin">Email</label>
+            <input type="mail" placeholder="Email" name='email'>
+            <label class="margin">Password</label>
+            <input type="Password" placeholder="Password" name='password1'>
+            <label class="margin">Confirm Password</label>
+            <input type="Password" placeholder="Confirm Password" name='password2'>
+            {% csrf_token %}
+        </form>
+        <div>
+            <br> <button form="form2">Create Account</button><br>
+        </div>
+    </div>
+</body>
+<script>
+    var clicktogo = document.getElementById('clickMe');
+var clicktoback = document.getElementById('click');
+
+var targetElement2 = document.getElementById('targetElement2');
+var targetElement1 = document.getElementById('targetElement1');
+
+
+clicktogo.addEventListener('click', function () {   
+    targetElement2.style.display = 'inline';
+    targetElement1.style.display = 'none';
+});
+clicktoback.addEventListener('click', function () {   
+    targetElement1.style.display = 'inline';
+    targetElement2.style.display = 'none';
+});
+
+</script>
+</html>

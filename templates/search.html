@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block search %}
+
+<form  class="text-center mt-12 " action="{% url 'search' %}">
+    <input  class="w-full max-w-2xl mx-auto border-transparent p-2 md:p-4 rounded-xl" type="search" name="q" placeholder="Search Contacts" id="">
+    <button  class="bg-white p-2 md:p-4 rounded-xl">Search</button>
+</form>
+
+<ul class=" justify-center item-center mt-12 ml-12 flex flex-wrap gap-8 list-none">
+   
+    {% for contact in contact %}
+    <li class="bg-opacity-20 bg-white backdrop-blur-md border-4 transition duration-500 hover:border-yellow-500 text-white p-20 rounded-2xl">
+        <h1 class="text-6xl">{{contact.first_name}}</h1>
+            <button><a class="mt-12 rounded-2xl bg-green-700  p-4" href="{% url 'view' contact.id %}">View Contact</a></button>
+            <button  onclick="delcontact(this, '{{contact.id}}')" class="mt-12 bg-red-800 rounded-2xl p-4" >Delete Contact</button>
+    </li>
+    {% endfor %}
+</ul>
+<div class="h-screen flex items-end fixed bottom-0 left-0 mb-4 ml-4">
+    <form action="{% url 'signout' %}" method="post">
+        {% csrf_token %}
+        <button class="bg-gradient-to-r font-bold from-purple-500 to-pink-500 text-white p-4 rounded-full shadow-lg hover:bg-gradient-to-r hover:from-teal-400 hover:to-blue-500 hover:text-gray-800 transition duration-300 ease-in-out" type="submit">Sign Out</button>
+    </form>
+</div>
+
+<script>
+    function delcontact(btn,id){
+        fetch(`http://127.0.0.1:8000/del/${id}`)
+        .then(() => btn.parentElement.remove() )
+    }
+</script>
+
+ {% endblock %}

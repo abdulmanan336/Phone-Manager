@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block add %}
+<div
+    class=" mx-auto w-96 p-16 bg-opacity-10 mt-5 bg-white backdrop-blur-md rounded-xl border-2 border-transparent transition duration-500 hover:border-yellow-500">
+    <h1 class="text-2xl text-white font-mono">Create Your Contact</h1><br>
+
+    <form onsubmit="return validateForm()" id="form1" action="{% url "form" %}" method="post" class="flex flex-col gap-3 font-sans ">
+        {% csrf_token %}
+
+        <label class="text-white">Category</label>
+        <select class=" p-2 px-5 rounded-lg border-b-3 border-red-500" name="category" id="">
+            <option value="">Please select</option>
+            {% for category in category %}
+            <option value="{{category.id}}">{{category.title}}</option>
+            {% endfor %}
+        </select>
+
+        <label class="text-white">First Name</label>
+        <input class=" p-2 px-5 rounded-lg border-b-3 border-red-500" name="first_name" type="text"
+            placeholder="FIRST NAME">
+        <label class="text-white">Last Name</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="last_name" type="text"
+            placeholder="LAST NAME">
+        <label class="text-white">Email Address</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="email" type="email"
+            placeholder="EMAIL ADDRESS">
+        <label class="text-white">Phone</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="phone" type="number" placeholder="PHONE">
+        <label class="text-white">Address</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="adress" type="text" placeholder="ADDRESS">
+        <label class="text-white">Postal Adress</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="postaladress" type="text"
+            placeholder="Postal Adress">
+        <label class="text-white">City</label>
+        <input class="p-2 px-5 rounded-lg border-b-3 border-red-500" name="city" type="text" placeholder="City">
+    </form>
+    <div>
+        <br>
+        <button
+            type="Submit"
+            value="Submit"
+            class="p-1.5 px-5 text-15 font-mono rounded-lg bg-black text-white hover:scale-110 transition-transform duration-1000 ease-in-out"
+            form="form1">Submit
+        </button>
+    </div>
+</div>
+
+{% endblock %}
